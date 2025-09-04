@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Product } from '@/hooks/useApi';
+import { getProductImage } from '@/utils/productImages';
 
 interface ProductCardProps {
   product: Product;
@@ -55,10 +56,20 @@ export const ProductCard = ({ product, mode, onUpdate, onRequest }: ProductCardP
   return (
     <Card className={`border-2 transition-all duration-300 ${getStockStatus(product.Quantidade)}`}>
       <CardHeader className="pb-3">
-        <CardTitle className="text-lg flex items-center gap-2">
-          <span>{getStockIcon(product.Quantidade)}</span>
-          {product.Produto}
-        </CardTitle>
+        <div className="flex items-center gap-3">
+          <img 
+            src={getProductImage(product.Produto)} 
+            alt={product.Produto}
+            className="w-12 h-12 rounded-lg object-cover"
+            onError={(e) => {
+              e.currentTarget.style.display = 'none';
+            }}
+          />
+          <CardTitle className="text-lg flex items-center gap-2 flex-1">
+            <span>{getStockIcon(product.Quantidade)}</span>
+            {product.Produto}
+          </CardTitle>
+        </div>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="text-center">
