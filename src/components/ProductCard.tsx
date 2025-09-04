@@ -47,6 +47,11 @@ export const ProductCard = ({ product, mode, onUpdate, onRequest }: ProductCardP
     }
   };
 
+  // Não renderizar se o produto não tem nome válido
+  if (!product.Produto || product.Produto.trim() === '') {
+    return null;
+  }
+
   return (
     <Card className={`border-2 transition-all duration-300 ${getStockStatus(product.Quantidade)}`}>
       <CardHeader className="pb-3">

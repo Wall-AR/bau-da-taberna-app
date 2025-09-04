@@ -43,15 +43,25 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const login = async (username: string, password: string): Promise<boolean> => {
     setIsLoading(true);
     try {
-      // For demo purposes, we'll use simple validation
-      // Replace with actual API call when backend is ready
-      if ((username === 'cozinha' && password === 'cozinha123') || 
-          (username === 'balcao' && password === 'balcao123')) {
+      // Validação com os novos usuários da planilha
+      const validUsers: { [key: string]: { password: string; role: 'cozinha' | 'balcao' } } = {
+        'cozinha': { password: 'cozinha123', role: 'cozinha' },
+        'balcao': { password: 'balcao123', role: 'balcao' },
+        'Manoela': { password: 'taberna1manoela2025', role: 'cozinha' },
+        'Hironer': { password: 'taberna2hironer2025', role: 'cozinha' },
+        'Rosana': { password: 'taberna3rosana2025', role: 'cozinha' },
+        'Ramon': { password: 'taberna4ramon2025', role: 'balcao' },
+        'Gabriel': { password: 'taberna5gabriel2025', role: 'balcao' },
+        'Wallace': { password: 'taberna7wallace2025', role: 'cozinha' },
+      };
+
+      const userData = validUsers[username];
+      if (userData && userData.password === password) {
         
         const newUser: User = {
           id: username,
           username,
-          role: username as 'cozinha' | 'balcao',
+          role: userData.role,
         };
         
         setUser(newUser);
