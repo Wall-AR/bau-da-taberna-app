@@ -100,43 +100,125 @@
   }
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
+// ⚔️ Baú da Taberna - Mobile-First Layout Fixes
 
-  body {
-    @apply bg-background text-foreground font-sans;
-    background-image: 
-      radial-gradient(circle at 25% 25%, hsl(var(--tavern-wood-medium) / 0.05) 0%, transparent 25%),
-      radial-gradient(circle at 75% 75%, hsl(var(--tavern-gold) / 0.03) 0%, transparent 25%);
-  }
+/* Mobile viewport fixes */
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
 
-  /* Medieval Typography Classes */
-  .font-medieval {
-    font-family: 'Cinzel Decorative', 'MedievalSharp', serif;
-  }
+body {
+  /* Mobile optimizations */
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  overscroll-behavior: contain;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
+  /* Prevent horizontal scroll */
+  overflow-x: hidden;
+  max-width: 100vw;
+  
+  /* Tavern background with mobile performance */
+  background: hsl(var(--background));
+  background-image: 
+    radial-gradient(circle at 25% 25%, hsl(var(--tavern-wood-medium) / 0.03) 0%, transparent 25%),
+    radial-gradient(circle at 75% 75%, hsl(var(--tavern-gold) / 0.02) 0%, transparent 25%);
+  background-attachment: local; /* Better mobile performance than fixed */
+}
 
-  .font-content {
-    font-family: 'Roboto', sans-serif;
-  }
+/* Fix iOS viewport height issues */
+:root {
+  --vh: 1vh;
+}
 
-  /* Tavern specific utility classes */
-  .tavern-gradient {
-    background: linear-gradient(135deg, hsl(var(--tavern-wood-dark)), hsl(var(--tavern-wood-medium)));
+@supports (-webkit-touch-callout: none) {
+  .min-h-screen {
+    min-height: calc(var(--vh, 1vh) * 100);
   }
+}
 
-  .tavern-gold-gradient {
-    background: linear-gradient(135deg, hsl(var(--tavern-gold)), hsl(var(--tavern-gold) / 0.8));
-  }
+/* Mobile-first utility classes */
+.mobile-container {
+  @apply w-full max-w-none px-3 sm:px-4 lg:px-6;
+  @apply mx-auto;
+  max-width: min(100vw, 1400px);
+}
 
-  .tavern-shadow {
-    box-shadow: 0 4px 20px hsl(var(--tavern-wood-dark) / 0.3);
-  }
+.mobile-header {
+  @apply sticky top-0 z-50 w-full;
+  @apply bg-card/95 backdrop-blur-md border-b border-border;
+  @apply px-3 py-2 sm:px-4 sm:py-3;
+  /* Safe area for notched phones */
+  padding-top: max(0.5rem, env(safe-area-inset-top));
+}
 
-  .tavern-border {
-    border: 2px solid hsl(var(--tavern-gold) / 0.3);
-  }
+.mobile-main {
+  @apply flex-1 w-full;
+  @apply px-3 py-4 sm:px-4 sm:py-6;
+  /* Safe area for phones with bottom bars */
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+}
+
+.mobile-card-grid {
+  @apply grid gap-3 sm:gap-4;
+  @apply grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4;
+}
+
+/* Mobile-optimized cards */
+.mobile-card {
+  @apply w-full max-w-full;
+  @apply bg-card border border-border rounded-lg;
+  @apply p-3 sm:p-4;
+  @apply shadow-sm hover:shadow-md;
+  @apply transition-all duration-200;
+  @apply break-inside-avoid;
+  
+  /* Prevent cards from getting too small on mobile */
+  min-height: 200px;
+}
+
+/* Mobile touch targets */
+.mobile-button {
+  @apply min-h-[44px] min-w-[44px];
+  @apply touch-manipulation;
+  @apply transition-all duration-200;
+  @apply active:scale-95;
+}
+
+/* Mobile text scaling */
+.mobile-text-responsive {
+  @apply text-sm sm:text-base lg:text-lg;
+}
+
+.mobile-title-responsive {
+  @apply text-lg sm:text-xl lg:text-2xl xl:text-3xl;
+}
+
+/* Product image optimizations */
+.product-image-container {
+  @apply relative w-full aspect-square overflow-hidden rounded-md;
+  @apply bg-gradient-to-br from-muted/50 to-muted/20;
+}
+
+.product-image {
+  @apply w-full h-full object-cover;
+  @apply transition-transform duration-300;
+  @apply hover:scale-105;
+}
+
+/* Loading states */
+.mobile-loading {
+  @apply flex items-center justify-center;
+  @apply min-h-[200px] sm:min-h-[300px];
+}
+
+.mobile-spinner {
+  @apply w-8 h-8 sm:w-12 sm:h-12;
+  @apply border-4 border-primary/20 border-t-primary;
+  @apply rounded-full animate-spin;
 }
 
 @layer components {

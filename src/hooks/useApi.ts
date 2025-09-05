@@ -4,7 +4,8 @@ import { useToast } from '@/hooks/use-toast';
 const API_BASE_URL = 'https://script.google.com/macros/s/AKfycbwNJFT4q_KJJIz7DVBichnP30jO42NisrV77OFZKtnY1OurTb31dbv3spTgdIPDKD2IJQ/exec';
 
 export interface Product {
-  Produto: string;
+  Produto?: string;
+  Nome?: string;
   Quantidade: number;
 }
 
@@ -82,10 +83,10 @@ export const useApi = () => {
     }
   }, [toast]);
 
-  const updateStock = useCallback(async (user: string, items: Product[]): Promise<boolean> => {
+  const updateStock = useCallback(async (items: { [key: string]: number }): Promise<boolean> => {
     setIsLoading(true);
     try {
-      console.log('Enviando dados para o backend:', { user, items });
+      console.log('Enviando dados para o backend:', { items });
       
       // Tentativa 1: POST direto
       try {
@@ -96,7 +97,6 @@ export const useApi = () => {
           },
           body: JSON.stringify({
             action: 'update',
-            user,
             items,
           }),
         });
@@ -117,7 +117,6 @@ export const useApi = () => {
       // Tentativa 2: GET com parâmetros na URL (workaround para CORS)
       const params = new URLSearchParams({
         action: 'update',
-        user: user,
         data: JSON.stringify(items)
       });
       
