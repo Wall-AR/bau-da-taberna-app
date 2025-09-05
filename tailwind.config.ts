@@ -64,6 +64,20 @@ export default {
 					DEFAULT: 'hsl(var(--danger))',
 					foreground: 'hsl(var(--danger-foreground))'
 				},
+				// Tavern-specific colors
+				tavern: {
+					'wood-dark': 'hsl(var(--tavern-wood-dark))',
+					'wood-medium': 'hsl(var(--tavern-wood-medium))',
+					'gold': 'hsl(var(--tavern-gold))',
+					'red': 'hsl(var(--tavern-red))',
+					'green': 'hsl(var(--tavern-green))',
+					'cream': 'hsl(var(--tavern-cream))',
+				},
+			},
+			fontFamily: {
+				'medieval': ['Cinzel Decorative', 'MedievalSharp', 'serif'],
+				'content': ['Roboto', 'sans-serif'],
+				'sans': ['Roboto', 'system-ui', 'sans-serif'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

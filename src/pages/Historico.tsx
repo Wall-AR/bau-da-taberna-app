@@ -5,9 +5,10 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Navigation } from '@/components/Navigation';
+import { TavernLogo } from '@/components/TavernLogo';
 import { useAuth } from '@/contexts/AuthContext';
 import { useApi, HistoryItem } from '@/hooks/useApi';
-import { RefreshCw, Search, History } from 'lucide-react';
+import { RefreshCw, Search, History, Scroll, Plus, Edit, Send } from 'lucide-react';
 
 const Historico = () => {
   const { user, logout } = useAuth();
@@ -53,41 +54,59 @@ const Historico = () => {
 
   const getOperationIcon = (operacao: string) => {
     switch (operacao) {
-      case 'Adicionar': return '➕';
-      case 'Atualizar': return '📝';
-      case 'Solicitar': return '📤';
-      default: return '📋';
+      case 'Adicionar': return Plus;
+      case 'Atualizar': return Edit;
+      case 'Solicitar': return Send;
+      default: return Scroll;
     }
   };
 
   const getOperationColor = (operacao: string) => {
     switch (operacao) {
-      case 'Adicionar': return 'text-green-600 bg-green-50 border-green-200';
-      case 'Atualizar': return 'text-blue-600 bg-blue-50 border-blue-200';
-      case 'Solicitar': return 'text-orange-600 bg-orange-50 border-orange-200';
-      default: return 'text-gray-600 bg-gray-50 border-gray-200';
+      case 'Adicionar': return 'text-success bg-success/10 border-success/30';
+      case 'Atualizar': return 'text-primary bg-primary/10 border-primary/30';
+      case 'Solicitar': return 'text-warning bg-warning/10 border-warning/30';
+      default: return 'text-muted-foreground bg-muted border-border';
+    }
+  };
+
+  const getOperationEmoji = (operacao: string) => {
+    switch (operacao) {
+      case 'Adicionar': return '⚔️';
+      case 'Atualizar': return '🛡️';
+      case 'Solicitar': return '🏹';
+      default: return '📜';
     }
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background mobile-safe-area">
       {/* Header */}
-      <header className="bg-card border-b border-border p-4">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-foreground flex items-center gap-2">
-            <History className="w-6 h-6" />
-            📜 Histórico de Alterações
-          </h1>
+      <header className="tavern-header sticky top-0 z-10 mb-4">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <TavernLogo size="md" showText={false} />
+            <div>
+              <h1 className="tavern-title text-foreground flex items-center gap-2">
+                <Scroll className="w-6 h-6 sm:w-8 sm:h-8 text-tavern-gold" />
+                📜 Crônicas da Taberna
+              </h1>
+              <p className="tavern-body text-muted-foreground">
+                Registros das batalhas do estoque
+              </p>
+            </div>
+          </div>
           
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 w-full sm:w-auto">
             <Button
               variant="outline"
               size="sm"
               onClick={loadHistory}
               disabled={isLoading}
+              className="mobile-touch-target tavern-button-primary flex-1 sm:flex-none"
             >
-              <RefreshCw className="w-4 h-4 mr-2" />
-              Atualizar
+              <RefreshCw className={`w-4 h-4 mr-2 ${isLoading ? 'animate-spin' : ''}`} />
+              <span className="font-content">Atualizar</span>
             </Button>
             
             <Navigation />
@@ -96,91 +115,122 @@ const Historico = () => {
       </header>
 
       {/* Filters */}
-      <div className="max-w-6xl mx-auto p-4 border-b border-border bg-card/50">
-        <div className="grid gap-4 md:grid-cols-3">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-            <Input
-              placeholder="Pesquisar..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10"
-            />
-          </div>
-          
-          <Select value={productFilter} onValueChange={setProductFilter}>
-            <SelectTrigger>
-              <SelectValue placeholder="Filtrar por produto" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="">Todos os produtos</SelectItem>
-              {uniqueProducts.map(product => (
-                <SelectItem key={product} value={product}>
-                  {product}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+      <div className="max-w-7xl mx-auto mb-6">
+        <Card className="tavern-card">
+          <CardHeader className="pb-4">
+            <CardTitle className="tavern-subtitle flex items-center gap-2">
+              🔍 Filtros de Busca
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <Input
+                  placeholder="🔍 Pesquisar nas crônicas..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-10 font-content border-tavern-gold/30 focus:border-tavern-gold"
+                />
+              </div>
+              
+              <Select value={productFilter} onValueChange={setProductFilter}>
+                <SelectTrigger className="border-tavern-gold/30 focus:border-tavern-gold">
+                  <SelectValue placeholder="🍔 Filtrar por produto" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="">Todos os produtos</SelectItem>
+                  {uniqueProducts.map(product => (
+                    <SelectItem key={product} value={product}>
+                      {product}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
 
-          <Select value={userFilter} onValueChange={setUserFilter}>
-            <SelectTrigger>
-              <SelectValue placeholder="Filtrar por usuário" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="">Todos os usuários</SelectItem>
-              {uniqueUsers.map(user => (
-                <SelectItem key={user} value={user}>
-                  {user}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+              <Select value={userFilter} onValueChange={setUserFilter}>
+                <SelectTrigger className="border-tavern-gold/30 focus:border-tavern-gold">
+                  <SelectValue placeholder="👤 Filtrar por guerreiro" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="">Todos os guerreiros</SelectItem>
+                  {uniqueUsers.map(user => (
+                    <SelectItem key={user} value={user}>
+                      {user}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
       {/* Main Content */}
-      <main className="max-w-6xl mx-auto p-4">
+      <main className="max-w-7xl mx-auto">
         {isLoading && history.length === 0 ? (
-          <div className="text-center py-8">
-            <div className="animate-spin w-8 h-8 border-2 border-primary border-t-transparent rounded-full mx-auto mb-4" />
-            <p>Carregando histórico...</p>
-          </div>
+          <Card className="tavern-card">
+            <CardContent className="text-center py-12">
+              <div className="animate-spin w-12 h-12 border-4 border-tavern-gold border-t-transparent rounded-full mx-auto mb-6" />
+              <p className="tavern-body text-muted-foreground">📜 Consultando as crônicas antigas...</p>
+            </CardContent>
+          </Card>
         ) : filteredHistory.length === 0 ? (
-          <Card>
-            <CardContent className="text-center py-8">
-              <p className="text-muted-foreground">Nenhum registro encontrado</p>
+          <Card className="tavern-card">
+            <CardContent className="text-center py-12">
+              <Scroll className="w-16 h-16 text-muted-foreground mx-auto mb-4 opacity-50" />
+              <p className="tavern-subtitle text-muted-foreground mb-2">Nenhuma crônica encontrada</p>
+              <p className="tavern-body text-muted-foreground">
+                Não há registros que correspondam aos filtros aplicados
+              </p>
             </CardContent>
           </Card>
         ) : (
-          <div className="space-y-3">
-            {filteredHistory.map((item, index) => (
-              <Card key={index} className="border-l-4 border-l-primary">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4 flex-1">
-                      <div className="flex items-center gap-2">
-                        <span className="text-lg">{getOperationIcon(item.Operacao)}</span>
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium border ${getOperationColor(item.Operacao)}`}>
-                          {item.Operacao}
-                        </span>
+          <div className="space-y-4">
+            {filteredHistory.map((item, index) => {
+              const OperationIcon = getOperationIcon(item.Operacao);
+              return (
+                <Card key={index} className="tavern-card hover:scale-[1.02] transition-all duration-300">
+                  <CardContent className="p-4 sm:p-6">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                      <div className="flex items-start sm:items-center gap-4 flex-1 min-w-0">
+                        <div className="flex items-center gap-3">
+                          <div className="text-2xl">{getOperationEmoji(item.Operacao)}</div>
+                          <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                            <OperationIcon className="w-5 h-5 text-muted-foreground" />
+                            <span className={`px-3 py-1 rounded-full text-xs font-medium border-2 ${getOperationColor(item.Operacao)} font-content`}>
+                              {item.Operacao}
+                            </span>
+                          </div>
+                        </div>
+                        
+                        <div className="flex-1 min-w-0">
+                          <p className="tavern-subtitle truncate">{item.Produto}</p>
+                          <p className="tavern-body text-muted-foreground">
+                            <span className="font-medium">⚔️ {item.Usuario}</span> • 📅 {item.Data}
+                          </p>
+                        </div>
                       </div>
                       
-                      <div className="flex-1">
-                        <p className="font-medium">{item.Produto}</p>
-                        <p className="text-sm text-muted-foreground">
-                          por {item.Usuario} • {item.Data}
-                        </p>
+                      <div className="text-center sm:text-right bg-primary/10 rounded-lg p-3 border border-primary/20 min-w-[80px]">
+                        <p className="font-bold text-xl sm:text-2xl text-primary font-medieval">{item.Quantidade}</p>
+                        <p className="text-xs text-muted-foreground font-content uppercase tracking-wider">unidades</p>
                       </div>
                     </div>
-                    
-                    <div className="text-right">
-                      <p className="font-bold text-lg">{item.Quantidade}</p>
-                      <p className="text-xs text-muted-foreground">unidades</p>
-                    </div>
-                  </div>
+                  </CardContent>
+                </Card>
+              );
+            })}
+            
+            {/* Loading more indicator */}
+            {isLoading && history.length > 0 && (
+              <Card className="tavern-card">
+                <CardContent className="text-center py-6">
+                  <div className="animate-spin w-6 h-6 border-2 border-tavern-gold border-t-transparent rounded-full mx-auto mb-2" />
+                  <p className="tavern-body text-muted-foreground">Carregando mais crônicas...</p>
                 </CardContent>
               </Card>
-            ))}
+            )}
           </div>
         )}
       </main>

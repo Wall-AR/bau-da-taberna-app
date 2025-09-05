@@ -2,87 +2,101 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Baú da Taberna Design System */
+/* ⚔️ Baú da Taberna Design System - Medieval Theme */
 
 @layer base {
   :root {
-    /* Light theme - Cozinha */
-    --background: 0 0% 98%;
-    --foreground: 25 25% 15%;
+    /* Cozinha Theme - Light Wood & Clean */
+    --background: 30 15% 96%; /* Fundo claro como madeira clara */
+    --foreground: 25 25% 15%; /* Texto escuro legível */
 
-    --card: 0 0% 100%;
+    --card: 30 20% 98%; /* Cartões levemente amadeirados */
     --card-foreground: 25 25% 15%;
 
-    --popover: 0 0% 100%;
+    --popover: 30 20% 98%;
     --popover-foreground: 25 25% 15%;
 
-    --primary: 25 95% 53%;
-    --primary-foreground: 0 0% 98%;
+    /* Dourado para destaques - Primary */
+    --primary: 45 85% 47%; /* Dourado (#D4AF37) */
+    --primary-foreground: 25 25% 15%; /* Texto escuro no dourado */
 
-    --secondary: 45 100% 96%;
-    --secondary-foreground: 25 25% 15%;
+    /* Marrom médio para secundário */
+    --secondary: 25 35% 28%; /* Marrom médio (#5D4037) */
+    --secondary-foreground: 30 15% 96%; /* Texto claro */
 
-    --muted: 45 30% 94%;
-    --muted-foreground: 25 15% 45%;
+    --muted: 30 25% 90%;
+    --muted-foreground: 25 20% 40%;
 
-    --accent: 25 95% 53%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 45 85% 47%; /* Mesmo dourado */
+    --accent-foreground: 25 25% 15%;
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 70% 45%; /* Vermelho escuro (#B71C1C) */
+    --destructive-foreground: 30 15% 96%;
 
-    /* Status colors */
-    --success: 142 76% 36%;
-    --success-foreground: 0 0% 98%;
-    --warning: 45 93% 47%;
+    /* Status colors temáticos */
+    --success: 80 60% 35%; /* Verde oliva (#558B2F) */
+    --success-foreground: 30 15% 96%;
+    --warning: 45 85% 47%; /* Dourado para warning */
     --warning-foreground: 25 25% 15%;
-    --danger: 0 84% 60%;
-    --danger-foreground: 0 0% 98%;
+    --danger: 0 70% 45%; /* Vermelho escuro */
+    --danger-foreground: 30 15% 96%;
 
-    --border: 45 30% 88%;
-    --input: 45 30% 94%;
-    --ring: 25 95% 53%;
+    --border: 30 25% 85%;
+    --input: 30 25% 92%;
+    --ring: 45 85% 47%; /* Anel dourado */
 
-    --radius: 0.5rem;
+    --radius: 0.75rem; /* Mais arredondado, mais amigável */
+
+    /* Tavern specific colors */
+    --tavern-wood-dark: 25 25% 15%; /* Marrom escuro #3E2723 */
+    --tavern-wood-medium: 25 35% 28%; /* Marrom médio #5D4037 */
+    --tavern-gold: 45 85% 47%; /* Dourado #D4AF37 */
+    --tavern-red: 0 70% 45%; /* Vermelho #B71C1C */
+    --tavern-green: 80 60% 35%; /* Verde oliva #558B2F */
+    --tavern-cream: 30 40% 95%; /* Branco quebrado #FBE9E7 */
   }
 
   .dark, .balcao-theme {
-    /* Dark/Brown theme - Balcão */
-    --background: 25 15% 12%;
-    --foreground: 45 100% 96%;
+    /* Balcão Theme - Dark Tavern */
+    --background: 25 25% 15%; /* Marrom escuro como fundo principal */
+    --foreground: 30 40% 95%; /* Branco quebrado para texto */
 
-    --card: 25 20% 16%;
-    --card-foreground: 45 100% 96%;
+    --card: 25 35% 20%; /* Cartões em marrom um pouco mais claro */
+    --card-foreground: 30 40% 95%;
 
-    --popover: 25 20% 16%;
-    --popover-foreground: 45 100% 96%;
+    --popover: 25 35% 20%;
+    --popover-foreground: 30 40% 95%;
 
-    --primary: 25 95% 53%;
-    --primary-foreground: 0 0% 98%;
+    /* Dourado mantido */
+    --primary: 45 85% 47%; /* Dourado */
+    --primary-foreground: 25 25% 15%; /* Texto escuro no dourado */
 
-    --secondary: 25 25% 22%;
-    --secondary-foreground: 45 100% 96%;
+    /* Marrom médio para secundário */
+    --secondary: 25 35% 28%; /* Marrom médio */
+    --secondary-foreground: 30 40% 95%;
 
-    --muted: 25 25% 18%;
-    --muted-foreground: 45 30% 65%;
+    --muted: 25 30% 18%;
+    --muted-foreground: 30 30% 70%;
 
-    --accent: 25 95% 53%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 45 85% 47%; /* Dourado */
+    --accent-foreground: 25 25% 15%;
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 70% 55%; /* Vermelho um pouco mais claro no dark */
+    --destructive-foreground: 30 40% 95%;
 
-    --border: 25 25% 25%;
-    --input: 25 25% 20%;
-    --ring: 25 95% 53%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --border: 25 30% 25%;
+    --input: 25 30% 22%;
+    --ring: 45 85% 47%;
+    
+    /* Sidebar específico */
+    --sidebar-background: 25 25% 15%;
+    --sidebar-foreground: 30 40% 95%;
+    --sidebar-primary: 45 85% 47%;
+    --sidebar-primary-foreground: 25 25% 15%;
+    --sidebar-accent: 25 35% 20%;
+    --sidebar-accent-foreground: 30 40% 95%;
+    --sidebar-border: 25 30% 25%;
+    --sidebar-ring: 45 85% 47%;
   }
 }
 
@@ -92,37 +106,127 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+    background-image: 
+      radial-gradient(circle at 25% 25%, hsl(var(--tavern-wood-medium) / 0.05) 0%, transparent 25%),
+      radial-gradient(circle at 75% 75%, hsl(var(--tavern-gold) / 0.03) 0%, transparent 25%);
+  }
+
+  /* Medieval Typography Classes */
+  .font-medieval {
+    font-family: 'Cinzel Decorative', 'MedievalSharp', serif;
+  }
+
+  .font-content {
+    font-family: 'Roboto', sans-serif;
+  }
+
+  /* Tavern specific utility classes */
+  .tavern-gradient {
+    background: linear-gradient(135deg, hsl(var(--tavern-wood-dark)), hsl(var(--tavern-wood-medium)));
+  }
+
+  .tavern-gold-gradient {
+    background: linear-gradient(135deg, hsl(var(--tavern-gold)), hsl(var(--tavern-gold) / 0.8));
+  }
+
+  .tavern-shadow {
+    box-shadow: 0 4px 20px hsl(var(--tavern-wood-dark) / 0.3);
+  }
+
+  .tavern-border {
+    border: 2px solid hsl(var(--tavern-gold) / 0.3);
   }
 }
 
 @layer components {
-  /* Stock status indicators */
+  /* Tavern-themed stock status indicators */
   .stock-danger {
-    @apply bg-red-100 border-red-500 text-red-900 animate-pulse;
+    @apply bg-red-50 border-2 border-danger text-danger animate-pulse;
+    background: linear-gradient(135deg, hsl(var(--danger) / 0.1), hsl(var(--danger) / 0.05));
+    border-left: 4px solid hsl(var(--danger));
   }
 
   .stock-warning {
-    @apply bg-yellow-100 border-yellow-500 text-yellow-900;
+    @apply bg-yellow-50 border-2 border-warning text-warning;
+    background: linear-gradient(135deg, hsl(var(--warning) / 0.1), hsl(var(--warning) / 0.05));
+    border-left: 4px solid hsl(var(--warning));
   }
 
   .stock-success {
-    @apply bg-green-100 border-green-500 text-green-900;
+    @apply bg-green-50 border-2 border-success text-success;
+    background: linear-gradient(135deg, hsl(var(--success) / 0.1), hsl(var(--success) / 0.05));
+    border-left: 4px solid hsl(var(--success));
   }
 
-  /* Theme-aware stock indicators */
+  /* Dark theme stock indicators */
   .balcao-theme .stock-danger,
   .dark .stock-danger {
-    @apply bg-red-900/30 border-red-400 text-red-200 animate-pulse;
+    @apply bg-danger/20 border-2 border-danger text-danger-foreground animate-pulse;
+    background: linear-gradient(135deg, hsl(var(--danger) / 0.2), hsl(var(--danger) / 0.1));
   }
 
   .balcao-theme .stock-warning,
   .dark .stock-warning {
-    @apply bg-yellow-900/30 border-yellow-400 text-yellow-200;
+    @apply bg-warning/20 border-2 border-warning text-foreground;
+    background: linear-gradient(135deg, hsl(var(--warning) / 0.2), hsl(var(--warning) / 0.1));
   }
 
   .balcao-theme .stock-success,
   .dark .stock-success {
-    @apply bg-green-900/30 border-green-400 text-green-200;
+    @apply bg-success/20 border-2 border-success text-success-foreground;
+    background: linear-gradient(135deg, hsl(var(--success) / 0.2), hsl(var(--success) / 0.1));
+  }
+
+  /* Tavern UI Components */
+  .tavern-card {
+    @apply bg-card border-2 border-border rounded-lg p-4 tavern-shadow;
+    background-image: 
+      linear-gradient(135deg, hsl(var(--card)), hsl(var(--card) / 0.95)),
+      radial-gradient(circle at 20% 20%, hsl(var(--tavern-gold) / 0.03) 0%, transparent 30%);
+  }
+
+  .tavern-button-primary {
+    @apply bg-primary text-primary-foreground border-2 border-primary hover:bg-primary/90;
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary) / 0.9));
+    transition: all 0.3s ease;
+  }
+
+  .tavern-button-primary:hover {
+    box-shadow: 0 6px 20px hsl(var(--primary) / 0.4);
+    transform: translateY(-2px);
+  }
+
+  .tavern-header {
+    @apply bg-card/90 backdrop-blur-sm border-b-2 border-border p-4;
+    background-image: 
+      linear-gradient(90deg, hsl(var(--card)), hsl(var(--card) / 0.95)),
+      radial-gradient(ellipse at center, hsl(var(--tavern-gold) / 0.05) 0%, transparent 50%);
+  }
+
+  /* Mobile optimized classes */
+  .mobile-safe-area {
+    @apply px-4 py-2 max-w-full overflow-x-hidden;
+  }
+
+  .mobile-touch-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+
+  .mobile-grid {
+    @apply grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4;
+  }
+
+  /* Responsive text sizes */
+  .tavern-title {
+    @apply text-xl sm:text-2xl lg:text-3xl font-medieval font-bold;
+  }
+
+  .tavern-subtitle {
+    @apply text-lg sm:text-xl font-medieval font-semibold;
+  }
+
+  .tavern-body {
+    @apply text-sm sm:text-base font-content;
   }
 }
